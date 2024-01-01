@@ -1,0 +1,109 @@
+#! /bin/bash
+###################################################################################################
+# autor: Giovanni Zuccolo                                                                         #
+# em caso de bugs enviar um email: giovannizuccolo.on@gmail.com                                   #
+# Programa para automatizar o backup no rclone                                                    #
+# Dependências: pv, lolcat                                                                        #
+# Changelog: --ignore-existing -p --checksum rogress e checksum                                   #
+# Version: 3.0                                                                                    #
+###################################################################################################
+#-----------------------------------------| VARIAVEIS |-------------------------------------------#
+
+vermelho="tput setaf 1"
+reset="tput sgr0"
+negrito="tput bold"
+
+#------------------------------------------| FUNÇÕES |--------------------------------------------#
+_WRITE() {
+    local write="$@"
+    echo "$write"| pv -qL 18
+    return 0
+}
+
+DRAW_LINE() {
+
+    local cols=$(tput cols)
+    local line=""
+    for ((i = 0; i < cols; i++)); do
+        line+="$@"
+    done
+	echo "$line"
+}
+
+#----------------------------------------| PARA--------------------------------------#
+if [ $# -ne 0 ]; then
+    if [ "$1" = "-l" ]; then
+        echo "
+        [ 01 ] - PROGRAMAÇÃO
+        [ 02 ] - PESSOAL
+        [ 03 ] - GUERRAS
+        [ 04 ] - ENGENHARIA_DA_COMP
+        [ 05 ] - HACKING
+        [ 06 ] - EEAR
+        [ 07 ] - LIVROS
+        [ 08 ] - PICTURES
+        [ 09 ] - MUSIC
+        [ 10 ] - VIDEOS
+        [ 11 ] - DOCUMENTS
+        [ 12 ] - ESTUDOS
+	[ 13 ] - DRIVE_ESTUDOS
+	" | lolcat
+        exit
+    else
+        echo "parâmetro inválido"
+    fi
+fi
+###################################################################################################
+#---------------------------------------| BACKUP DO SSD |-----------------------------------------#
+clear; DRAW_LINE "="; _WRITE "| Executando Backup <--> Diretório: PROGRAMAÇÃO"
+rclone sync /media/giovanni_zuccolo/SSD_ZUCCOLO/PROGRAMAÇÃO/ gdrive:PROGRAMAÇÃO --ignore-existing -P --checksum                 # Backup do diretório: PROGRAMAçÃO
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "-"
+
+_WRITE "| Executando Backup <--> Diretório: PESSOAL"
+rclone sync /media/giovanni_zuccolo/SSD_ZUCCOLO/PESSOAL/ gdrive:PESSOAL --ignore-existing -P --checksum                         # Backup do diretório: PESSOAL
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "-"
+
+_WRITE "| Executando Backup <--> Diretório: GUERRAS"
+rclone sync /media/giovanni_zuccolo/SSD_ZUCCOLO/GUERRAS/ gdrive:GUERRAS --ignore-existing -P --checksum                         # Backup do diretório: GUERRAS
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "-"
+
+_WRITE "| Executando Backup <--> Diretório: ENGENHARIA_DA_COMP"
+rclone sync /media/giovanni_zuccolo/SSD_ZUCCOLO/ENGENHARIA_DA_COMP/ gdrive:ENGENHARIA_DA_COMP --ignore-existing -P --checksum   # Backup do diretório: ENGENHARIA_DA_COMP
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "-"
+
+_WRITE "| Executando Backup <--> Diretório: HACKING"
+rclone sync /media/giovanni_zuccolo/SSD_ZUCCOLO/HACKING/ gdrive:HACKING --ignore-existing -P --checksum                         # Backup do diretório: HACKING
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "-"
+
+_WRITE "| Executando Backup <--> Diretório: EEAR"
+rclone sync /media/giovanni_zuccolo/SSD_ZUCCOLO/EEAR/ gdrive:EEAR --ignore-existing -P --checksum                               # Backup do diretório: EEAR
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "-"
+
+_WRITE "| Executando Backup <--> Diretório: LIVROS"
+rclone sync /media/giovanni_zuccolo/SSD_ZUCCOLO/LIVROS/ gdrive:LIVROS --ignore-existing -P --checksum                           # Backup do diretório: LIVROS
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "-"
+
+_WRITE "| Executando Backup <--> Diretório: ESTUDOS"
+rclone sync /media/giovanni_zuccolo/SSD_ZUCCOLO/ESTUDOS/ gdrive:ESTUDOS --ignore-existing -P --checksum                           # Backup do diretório: ESTUDOS
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "-"
+
+_WRITE "| Executando Backup <--> Diretório: DRIVE_ESTUDOS"
+rclone sync /media/giovanni_zuccolo/SSD_ZUCCOLO/DRIVE_ESTUDOS/ gdrive:DRIVE_ESTUDOS --ignore-existing -P --checksum                           # Backup do diretório: DRIVE_ESTUDOS
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "-"
+#----------------------------------| BACKUP DO DIRETÓRIO HOME |-----------------------------------#
+_WRITE "| Executando Backup <--> Diretório: PICTURES"
+rclone sync /home/giovanni_zuccolo/Pictures/ gdrive:PICTURES --ignore-existing -P --checksum                                    # Backup do diretório: PICTURES
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "-"
+
+_WRITE "| Executando Backup <--> Diretório: MUSIC"
+rclone sync /home/giovanni_zuccolo/Music/ gdrive:MUSIC --ignore-existing -P --checksum                                          # Backup do diretório: MUSIC
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "-"
+
+_WRITE "| Executando Backup <--> Diretório: VIDEOS"
+rclone sync /home/giovanni_zuccolo/Videos/ gdrive:VIDEOS --ignore-existing -P --checksum                                        # Backup do diretório: VIDEOS
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "-"
+
+_WRITE "| Executando Backup <--> Diretório: DOCUMENTS"
+rclone sync /home/giovanni_zuccolo/Documents/ gdrive:DOCUMENTS --ignore-existing -P --checksum                                  # Backup do diretório: DOCUMENTS
+$negrito; $vermelho; _WRITE " <--> Backup Concluído!"; $reset; DRAW_LINE "="
+#-------------------------------------------| FINISH |--------------------------------------------#
